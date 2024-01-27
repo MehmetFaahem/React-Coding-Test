@@ -1,3 +1,45 @@
 @import "abstract/variables";
-@import 'bootstrap/scss/bootstrap.scss';
+@import "bootstrap/scss/bootstrap.scss";
 @import "abstract/base";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.modal_container {
+  display: flex;
+  position: fixed;
+  padding: 7rem;
+  justify-content: center;
+  align-items: center;
+  place-content: center;
+}
+
+.modal_children {
+  display: flex;
+  overflow-y: scroll;
+  padding: 6rem;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  max-height: 24rem;
+  color: #000000;
+  background-color: aliceblue;
+}
+
+.button-a {
+  background-color: #46139f;
+  color: white;
+}
+
+.button-b {
+  background-color: #ff7f50;
+  color: white;
+}
+
+#button-c {
+  background-color: white;
+  color: black;
+  border-style: solid;
+  border-width: 2;
+  border-color: #46139f;
+}

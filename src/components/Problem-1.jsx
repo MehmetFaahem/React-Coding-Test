@@ -1,10 +1,32 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 const Problem1 = () => {
+  const [Users, setUsers] = useState([]);
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
+
   const [show, setShow] = useState("all");
+
+  //   useEffect(() => {
+  //     setUsers((pre) => pre);
+  //   }, [Users.length]);
 
   const handleClick = (val) => {
     setShow(val);
+  };
+
+  const handleSubmit = (e) => {
+    console.log(Users);
+    let arr = [...Users];
+    const value = {
+      name,
+      status,
+    };
+
+    arr.push(value);
+    setUsers(arr);
+    e.preventDefault();
   };
 
   return (
@@ -14,17 +36,29 @@ const Problem1 = () => {
         <div className="col-6 ">
           <form className="row gy-2 gx-3 align-items-center mb-4">
             <div className="col-auto">
-              <input type="text" className="form-control" placeholder="Name" />
-            </div>
-            <div className="col-auto">
               <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 type="text"
                 className="form-control"
-                placeholder="Status"
+                placeholder="Name"
               />
             </div>
             <div className="col-auto">
-              <button type="submit" className="btn btn-primary">
+              <input
+                value={status}
+                type="text"
+                className="form-control"
+                placeholder="Status"
+                onChange={(e) => setStatus(e.target.value)}
+              />
+            </div>
+            <div className="col-auto">
+              <button
+                onClick={(e) => handleSubmit(e)}
+                type="submit"
+                className="btn btn-primary"
+              >
                 Submit
               </button>
             </div>
@@ -68,7 +102,18 @@ const Problem1 = () => {
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {Users.filter(({ status }) =>
+                show !== "all" ? status.toLowerCase() == show : status
+              ).map(function (data, key) {
+                return (
+                  <tr key={key}>
+                    <td>{data.name}</td>
+                    <td>{data.status}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </div>
       </div>
