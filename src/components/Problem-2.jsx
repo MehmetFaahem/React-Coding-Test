@@ -6,9 +6,39 @@ import axios from "axios";
 
 const Problem2 = () => {
   const [data, setData] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchMoreData = () => {
+    if (hasMore) {
+      axios
+        .get(`https://contact.mediusware.com/api/contacts/?page=${index}`)
+        .then((res) => {
+          setData((prevItems) => [...prevItems, ...res.data.results]);
+          res.data.results.length > 0 ? setHasMore(true) : setHasMore(false);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      null;
+    }
+
+    setIndex((prevIndex) => prevIndex + 1);
+  };
+
+  const handleScroll = () => {
+    if (scrollPosition > 10 && hasMore) {
+      fetchMoreData();
+    } else {
+      setScrollPosition((prev) => prev + 1);
+      console.log(scrollPosition);
+    }
+  };
+
+  const [index, setIndex] = useState(2);
+
   useEffect(() => {
     axios
-      .get("https://contact.mediusware.com/api/contacts/")
+      .get(`https://contact.mediusware.com/api/contacts/?page=1`)
       .then(function (response) {
         setData(response.data.results);
       })
@@ -16,6 +46,7 @@ const Problem2 = () => {
         console.log(error);
       });
   }, []);
+
   const [modalA, setModalA] = useState(false);
   const [modalB, setModalB] = useState(false);
   const [modalC, setModalC] = useState(false);
@@ -25,7 +56,11 @@ const Problem2 = () => {
 
   return (
     <div className="container">
-      <Modal onClose={!modalA} show={modalA}>
+      <Modal
+        onClose={!modalA}
+        show={modalA}
+        onScroll={hasMore ? handleScroll : null}
+      >
         <div className="mb-3">
           <div className="space-x-2">
             <button
@@ -52,9 +87,26 @@ const Problem2 = () => {
               Close
             </button>
           </div>
-          <div className="flex">
-            <h6>Click checkbox to Generate with even ID</h6>
+          <div
+            style={{
+              display: "flex",
+              placeItems: "center",
+              placeContent: "center",
+            }}
+            className="flex flex-row"
+          >
+            <h6
+              style={{
+                marginTop: "7px",
+                marginRight: "10px",
+              }}
+            >
+              Generate with even ID
+            </h6>
             <input
+              style={{
+                padding: "10px",
+              }}
               value={iseven}
               type="checkbox"
               onChange={() => {
@@ -71,6 +123,7 @@ const Problem2 = () => {
             className="text-black mb-4 text-3xl p-2 rounded-lg border-solid border-2 border-slate-800"
           />
         </div>
+
         <div className="space-y-2">
           {data
             .filter(function (value) {
@@ -106,7 +159,11 @@ const Problem2 = () => {
             ))}
         </div>
       </Modal>
-      <Modal onClose={!modalB} show={modalB}>
+      <Modal
+        onScroll={hasMore ? handleScroll : null}
+        onClose={!modalB}
+        show={modalB}
+      >
         <div className="mb-3">
           <div className="space-x-2">
             <button
@@ -131,11 +188,28 @@ const Problem2 = () => {
               Close
             </button>
           </div>
-          <div className="flex">
-            <h6>Click checkbox to Generate with even ID</h6>
+          <div
+            style={{
+              display: "flex",
+              placeItems: "center",
+              placeContent: "center",
+            }}
+            className="flex flex-row"
+          >
+            <h6
+              style={{
+                marginTop: "7px",
+                marginRight: "10px",
+              }}
+            >
+              Generate with even ID
+            </h6>
             <input
-              type="checkbox"
+              style={{
+                padding: "10px",
+              }}
               value={iseven}
+              type="checkbox"
               onChange={() => {
                 setIsEven(false);
                 setIsEven(!iseven);
