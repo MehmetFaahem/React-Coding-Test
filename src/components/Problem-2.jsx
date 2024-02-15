@@ -141,6 +141,8 @@ const Problem2 = () => {
                 value.country.name.toLowerCase().includes(number.toLowerCase())
               ) {
                 return value;
+              } else if (number == "" || number == null) {
+                return value;
               }
             })
             .map((data) => (
@@ -240,6 +242,8 @@ const Problem2 = () => {
                 value.phone.toLowerCase().includes(number.toLowerCase()) ||
                 value.country.name.toLowerCase().includes(number.toLowerCase())
               ) {
+                return value;
+              } else if (number == "" || number == null) {
                 return value;
               }
             })
