@@ -62,7 +62,7 @@ const Problem2 = () => {
         onScroll={hasMore ? handleScroll : null}
       >
         <div className="mb-3">
-          <div className="space-x-2">
+          <div className="button-container">
             <button
               onClick={() => {
                 setModalB(false);
@@ -165,7 +165,7 @@ const Problem2 = () => {
         show={modalB}
       >
         <div className="mb-3">
-          <div className="space-x-2">
+          <div className="button-container">
             <button
               onClick={() => {
                 setModalB(false);
@@ -262,7 +262,7 @@ const Problem2 = () => {
       </Modal>
       <Modal onClose={!modalC} show={modalC}>
         <div className="mb-3">
-          <div className="space-x-2">
+          <div className="button-container">
             <button
               onClick={() => {
                 setIsEven(false);

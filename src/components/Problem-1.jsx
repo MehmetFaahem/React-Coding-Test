@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
+
+let ActiveMemberArray = [];
 
 const Problem1 = () => {
   const [Users, setUsers] = useState([]);
@@ -7,10 +8,6 @@ const Problem1 = () => {
   const [status, setStatus] = useState("");
 
   const [show, setShow] = useState("all");
-
-  //   useEffect(() => {
-  //     setUsers((pre) => pre);
-  //   }, [Users.length]);
 
   const handleClick = (val) => {
     setShow(val);
@@ -24,7 +21,14 @@ const Problem1 = () => {
       status,
     };
 
-    arr.push(value);
+    if (value.status == "Active") {
+      arr.unshift(value);
+      ActiveMemberArray.push(value);
+    } else if (value.status == "Completed") {
+      arr.splice(ActiveMemberArray.length, 0, value);
+    } else {
+      arr.push(value);
+    }
     setUsers(arr);
     e.preventDefault();
   };

@@ -19,7 +19,7 @@ function Modal({ show, children, onClose, id, onScroll }) {
       className="modal_container"
     >
       <div
-        className="flex"
+        className="flex w-auto"
         onClick={(e) => {
           e.stopPropagation();
         }}
